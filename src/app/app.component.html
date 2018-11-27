@@ -1,9 +1,2 @@
 <h1>{{title | uppercase}}</h1>
-<ul>
-  <li *ngFor="let carPart of carParts">
-<h2>{{carPart.name}}</h2>
-<p>{{carPart.description}}</p>
-<p *ngIf="carPart.inStock >0">{{carPart.inStork}} inStock</p>
-    <p *ngIf="carPart.inStock ==0">{{carPart.inStork}} outStock</p>
-  </li>
-</ul>
+<app-carparts></app-carparts>
