@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CarPart} from './car-part';
 import {CARPARTS} from './mocks';
+import {CarpartsDataService} from './carparts-data.service';
 
 @Component({
   selector: 'app-carparts',
@@ -11,14 +12,34 @@ export class CarpartsComponent implements OnInit {
 
   carParts: CarPart[];
 
-  totalCarParts() {
-    return this.carParts.reduce((prev, curr) => prev + curr.inStock, 0);
+  constructor(private carpartsDataService: CarpartsDataService) {
+    console.log('log constructor');
   }
-
-  constructor() { }
 
   ngOnInit() {
-    this.carParts = CARPARTS;
+    console.log('log ngOnInit');
+//    this.carParts = CARPARTS;
+
+    this.carpartsDataService.getCarParts()
+      .subscribe(response => this.carParts = response['data']) ;
+
   }
 
+  totalCarParts() {
+    if ( Array.isArray(this.carParts)) {
+      return this.carParts.reduce((prev, curr) => prev + curr.inStock, 0);
+    }
+  }
+
+  upQuantity(carPart) {
+    carPart.quantity ++;
+  }
+
+  downQuantity(carPart) {
+    carPart.quantity --;
+  }
+
+  keyupQuantity(carPart, event) {
+    carPart.quantity = event.target.value;
+  }
 }

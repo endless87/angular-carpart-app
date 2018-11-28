@@ -10,6 +10,8 @@ export class AppComponent {
 //  title = 'carpart-app';
   title = 'Ultra Racing';
 
-
+  constructor() {
+    console.log('log app constructor');
+  }
 
 }
